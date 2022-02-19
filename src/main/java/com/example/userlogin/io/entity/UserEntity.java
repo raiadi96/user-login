@@ -15,7 +15,7 @@ public class UserEntity implements Serializable {
 	@GeneratedValue
 	public long id;
 
-	@Column(nullable = true)
+	@Column(nullable = false)
 	public String user_id;
 	
 	@Column(nullable = false, length = 50)
@@ -24,10 +24,10 @@ public class UserEntity implements Serializable {
 	@Column(nullable = false, length = 50)
 	public String last_name;
 	
-	@Column(nullable = false, length = 170)
+	@Column(nullable = false, length = 170, unique = true)
 	public String email;
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
 	public String encrypted_password;
 	
 	public String emailVerificationToken;

@@ -19,10 +19,12 @@ public class UserService implements IUserService {
 	@Override
 	public UserDto createUser(UserDto input_dto) {
 		// TODO Auto-generated method stub
-		UserEntity  userEnity = new UserEntity();
-		BeanUtils.copyProperties(input_dto, userEnity);
+		UserEntity  userEntity = new UserEntity();
+		BeanUtils.copyProperties(input_dto, userEntity);
+		userEntity.setUser_id("test_user_id");
+		userEntity.setEncrypted_password("test_encryption");
 		
-		UserEntity response_entity = _repo.save(userEnity);
+		UserEntity response_entity = _repo.save(userEntity);
 		UserDto response_dto = new UserDto();
 		BeanUtils.copyProperties(response_entity, response_dto);
 		
