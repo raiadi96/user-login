@@ -6,5 +6,7 @@ import com.example.userlogin.io.entity.UserEntity;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 	
+	UserEntity findByEmail(String email);
+	
 
 }

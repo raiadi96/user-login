@@ -1,6 +1,7 @@
 package com.example.userlogin.io.entity;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.*;;
 
@@ -47,8 +48,8 @@ public class UserEntity implements Serializable {
 		return user_id;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUser_id(String uuid) {
+		this.user_id = uuid;
 	}
 
 	public String getFirst_name() {

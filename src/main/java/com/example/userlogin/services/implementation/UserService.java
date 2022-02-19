@@ -1,5 +1,7 @@
 package com.example.userlogin.services.implementation;
 
+import java.util.UUID;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,12 @@ public class UserService implements IUserService {
 	@Override
 	public UserDto createUser(UserDto input_dto) {
 		// TODO Auto-generated method stub
+		if(_repo.findByEmail(input_dto.getEmail()) != null) throw new RuntimeException("Email Address already Exists!");
+		
 		UserEntity  userEntity = new UserEntity();
 		BeanUtils.copyProperties(input_dto, userEntity);
-		userEntity.setUser_id("test_user_id");
+		
+		userEntity.setUser_id(UUID.randomUUID().toString());
 		userEntity.setEncrypted_password("test_encryption");
 		
 		UserEntity response_entity = _repo.save(userEntity);
