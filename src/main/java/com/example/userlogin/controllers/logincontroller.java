@@ -35,9 +35,7 @@ public class logincontroller {
 
 		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 		UserDto userDto = new UserDto();
-		
 		BeanUtils.copyProperties(userDetailsRequestModel, userDto);
-		
 		UserDto created_user = userService.createUser(userDto);
 		BeanUtils.copyProperties(created_user, userResponse);
 		return userResponse;

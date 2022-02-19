@@ -2,17 +2,11 @@ package com.example.userlogin.model.request;
 
 public class UserDetailsRequestModel {
 
-	private String user_id;
 	private String first_name;
 	private String last_name;
 	private String email;
 	private String password;
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
+
 	public String getFirst_name() {
 		return first_name;
 	}
