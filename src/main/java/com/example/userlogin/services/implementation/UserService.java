@@ -1,9 +1,11 @@
 package com.example.userlogin.services.implementation;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,7 +47,11 @@ public class UserService implements IUserService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		UserEntity user = _repo.findByEmail(username);
+		if(user == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return new User(user.getEmail(), user.getEncrypted_password(), new ArrayList<>());
 	}
 	
 }
