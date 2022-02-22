@@ -18,4 +18,8 @@ public class UserLoginApplication {
 		
 	}
 
+	@Bean
+	public SpringApplicationContext springApplicationContext() {
+		return new SpringApplicationContext();
+	}
 }
