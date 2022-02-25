@@ -48,5 +48,5 @@ public class logincontroller {
 	public String deleteUser() {
 		return "delete User called";
 	}
-
+s
 }
