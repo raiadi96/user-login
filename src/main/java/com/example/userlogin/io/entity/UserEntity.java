@@ -16,20 +16,20 @@ public class UserEntity implements Serializable {
 	@GeneratedValue
 	public long id;
 
-	@Column(nullable = false)
-	public String user_id;
+	@Column(name = "user_id", nullable = false, length = 255)
+	public String userId;
 	
-	@Column(nullable = false, length = 50)
-	public String first_name;
+	@Column(name ="first_name",nullable = false, length = 50)
+	public String firstName;
 	
-	@Column(nullable = false, length = 50)
-	public String last_name;
+	@Column(name = "last_name", nullable = false, length = 50)
+	public String lastName;
 	
 	@Column(nullable = false, length = 170, unique = true)
 	public String email;
 	
-	@Column(nullable = false)
-	public String encrypted_password;
+	@Column(name = "encrypted_password",nullable = false)
+	public String encryptedPassword;
 	
 	public String emailVerificationToken;
 	
@@ -45,27 +45,27 @@ public class UserEntity implements Serializable {
 	}
 
 	public String getUser_id() {
-		return user_id;
+		return userId;
 	}
 
 	public void setUser_id(String uuid) {
-		this.user_id = uuid;
+		this.userId = uuid;
 	}
 
 	public String getFirst_name() {
-		return first_name;
+		return firstName;
 	}
 
 	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+		this.firstName = first_name;
 	}
 
 	public String getLast_name() {
-		return last_name;
+		return lastName;
 	}
 
 	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+		this.lastName = last_name;
 	}
 
 	public String getEmail() {
@@ -77,11 +77,11 @@ public class UserEntity implements Serializable {
 	}
 
 	public String getEncrypted_password() {
-		return encrypted_password;
+		return encryptedPassword;
 	}
 
 	public void setEncrypted_password(String encrypted_password) {
-		this.encrypted_password = encrypted_password;
+		this.encryptedPassword = encrypted_password;
 	}
 
 	public String getEmailVerificationToken() {

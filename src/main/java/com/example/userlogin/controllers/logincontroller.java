@@ -20,9 +20,13 @@ public class logincontroller {
 	IUserService userService;
 	
 	
-	@GetMapping
-	public String getUser() {
-		return "Getting a User";
+	@GetMapping(path ="/{userId}")
+	public UserDetailsResponseModel getUser(@PathVariable String userId) {
+		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
+
+		UserDto user_detail = userService.getUserById(userId);
+		BeanUtils.copyProperties(user_detail, userResponse);
+		return userResponse;
 	}
 	
 	@PutMapping
@@ -48,5 +52,4 @@ public class logincontroller {
 	public String deleteUser() {
 		return "delete User called";
 	}
-s
 }
