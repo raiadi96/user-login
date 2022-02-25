@@ -10,6 +10,7 @@ import com.example.userlogin.services.interfaces.IUserService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +21,7 @@ public class logincontroller {
 	IUserService userService;
 	
 	
-	@GetMapping(path ="/{userId}")
+	@GetMapping(path ="/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public UserDetailsResponseModel getUser(@PathVariable String userId) {
 		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 
@@ -34,7 +35,7 @@ public class logincontroller {
 		return "Update User Called!";
 	}
 	
-	@PostMapping
+	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public UserDetailsResponseModel postUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel) {
 
 		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
