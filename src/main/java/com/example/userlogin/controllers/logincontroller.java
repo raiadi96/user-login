@@ -4,7 +4,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.userlogin.dto.UserDto;
+import com.example.userlogin.exceptions.UserServiceException;
 import com.example.userlogin.model.request.UserDetailsRequestModel;
+import com.example.userlogin.model.response.ExceptionResponseModel;
 import com.example.userlogin.model.response.UserDetailsResponseModel;
 import com.example.userlogin.services.interfaces.IUserService;
 
@@ -37,7 +39,9 @@ public class logincontroller {
 	
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public UserDetailsResponseModel postUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel) {
-
+		
+		if(userDetailsRequestModel.getFirst_name() == null) throw new UserServiceException(ExceptionResponseModel.MISSING_REQUIRED_FIELD.getMessage());
+		
 		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 		UserDto userDto = new UserDto();
 		BeanUtils.copyProperties(userDetailsRequestModel, userDto);

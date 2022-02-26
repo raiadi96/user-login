@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.userlogin.dto.UserDto;
 import com.example.userlogin.io.entity.UserEntity;
+import com.example.userlogin.model.response.ExceptionResponseModel;
 import com.example.userlogin.repositories.UserRepository;
 import com.example.userlogin.services.interfaces.IUserService;
 
