@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.userlogin.dto.UserDto;
 import com.example.userlogin.exceptions.UserServiceException;
+import com.example.userlogin.model.request.OperationStatusEnum;
 import com.example.userlogin.model.request.UserDetailsRequestModel;
-import com.example.userlogin.model.response.ExceptionResponseModel;
+import com.example.userlogin.model.response.ExceptionResponseEnum;
+import com.example.userlogin.model.response.OperationStatusResponseModel;
 import com.example.userlogin.model.response.UserDetailsResponseModel;
 import com.example.userlogin.services.interfaces.IUserService;
 
@@ -32,15 +34,20 @@ public class logincontroller {
 		return userResponse;
 	}
 	
-	@PutMapping
-	public String putUser() {
-		return "Update User Called!";
+	@PutMapping(path ="/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public UserDetailsResponseModel putUser(@PathVariable String userId, @RequestBody UserDetailsRequestModel userDetails) {
+		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
+		UserDto userDto = new UserDto();
+		BeanUtils.copyProperties(userDetails, userDto);
+		UserDto user_detail = userService.updateUser(userId, userDto);
+		BeanUtils.copyProperties(user_detail, userResponse);
+		return userResponse;
 	}
 	
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public UserDetailsResponseModel postUser(@RequestBody UserDetailsRequestModel userDetailsRequestModel) {
 		
-		if(userDetailsRequestModel.getFirst_name() == null) throw new UserServiceException(ExceptionResponseModel.MISSING_REQUIRED_FIELD.getMessage());
+		if(userDetailsRequestModel.getFirst_name() == null) throw new UserServiceException(ExceptionResponseEnum.MISSING_REQUIRED_FIELD.getMessage());
 		
 		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 		UserDto userDto = new UserDto();
@@ -53,8 +60,12 @@ public class logincontroller {
 		
 	}
 	
-	@DeleteMapping
-	public String deleteUser() {
-		return "delete User called";
+	@DeleteMapping(path ="/{userId}",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public OperationStatusResponseModel deleteUser(@PathVariable String userId) {
+		OperationStatusResponseModel operationModel = new OperationStatusResponseModel();
+		operationModel.setOperationName(OperationStatusEnum.DELETE.name());
+		userService.deleteUser(userId);
+		operationModel.setOperationStatus(OperationStatusEnum.SUCCESS.name());
+		return operationModel;
 	}
 }

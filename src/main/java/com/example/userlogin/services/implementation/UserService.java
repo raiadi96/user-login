@@ -12,8 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.userlogin.dto.UserDto;
+import com.example.userlogin.exceptions.UserServiceException;
 import com.example.userlogin.io.entity.UserEntity;
-import com.example.userlogin.model.response.ExceptionResponseModel;
+import com.example.userlogin.model.response.ExceptionResponseEnum;
 import com.example.userlogin.repositories.UserRepository;
 import com.example.userlogin.services.interfaces.IUserService;
 
@@ -77,6 +78,30 @@ public class UserService implements IUserService {
 		UserDto responseDto = new UserDto();
 		BeanUtils.copyProperties(user, responseDto);
 		return responseDto;
+	}
+
+
+	@Override
+	public UserDto updateUser(String userId, UserDto userDto) {
+		UserDto responseDto = new UserDto();
+		UserEntity userEntity = _repo.findByUserId(userId);
+		if(userEntity == null) throw new UserServiceException(ExceptionResponseEnum.NO_RECORD_FOUND.getMessage());
+		
+		userEntity.setFirst_name(userDto.getFirst_name());
+		userEntity.setLast_name(userDto.getLast_name());
+		UserEntity responseEntity = _repo.save(userEntity);
+		BeanUtils.copyProperties(responseEntity, responseDto);
+		return responseDto;
+	}
+
+
+	@Override
+	public void deleteUser(String userId) {
+		UserEntity user = _repo.findByUserId(userId);
+		
+		if(user == null) throw new UserServiceException(ExceptionResponseEnum.NO_RECORD_FOUND.getMessage());
+		_repo.delete(user);
+		
 	}
 	
 }

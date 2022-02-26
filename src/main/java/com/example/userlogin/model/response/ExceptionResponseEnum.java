@@ -1,6 +1,6 @@
 package com.example.userlogin.model.response;
 
-public enum ExceptionResponseModel {
+public enum ExceptionResponseEnum {
 	
 	MISSING_REQUIRED_FIELD("Missing Required Field. Please check the documentation for the requried Field."),
 	RECORD_ALREADY_EXISTS("Record already Exists"),
@@ -13,7 +13,7 @@ public enum ExceptionResponseModel {
 	
 	private String message;
 	
-	ExceptionResponseModel(String message) {
+	ExceptionResponseEnum(String message) {
 		this.message = message;
 	}
 	
