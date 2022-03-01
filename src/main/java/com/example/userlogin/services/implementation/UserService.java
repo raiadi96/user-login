@@ -1,10 +1,13 @@
 package com.example.userlogin.services.implementation;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -102,6 +105,22 @@ public class UserService implements IUserService {
 		if(user == null) throw new UserServiceException(ExceptionResponseEnum.NO_RECORD_FOUND.getMessage());
 		_repo.delete(user);
 		
+	}
+
+
+	@Override
+	public List<UserDto> getUsers(int page, int limit) {
+		
+		Pageable page_service = PageRequest.of(page, limit);
+		List<UserEntity> entity_res = _repo.findAll(page_service).getContent();
+		List<UserDto> res = new ArrayList<UserDto>();
+		for(UserEntity entity: entity_res) {
+			UserDto userdto =  new UserDto();
+			BeanUtils.copyProperties(entity, userdto);
+			res.add(userdto);
+		}
+		
+		return res;
 	}
 	
 }
