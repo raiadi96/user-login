@@ -1,11 +1,14 @@
 package com.example.userlogin.model.request;
 
+import java.util.List;
+
 public class UserDetailsRequestModel {
 
 	private String first_name;
 	private String last_name;
 	private String email;
 	private String password;
+	public List<UserAddressRequestModel> addresses;
 
 	public String getFirst_name() {
 		return first_name;
@@ -30,6 +33,12 @@ public class UserDetailsRequestModel {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public List<UserAddressRequestModel> getAddresses() {
+		return addresses;
+	}
+	public void setAddresses(List<UserAddressRequestModel> addresses) {
+		this.addresses = addresses;
 	}
 	
 	
