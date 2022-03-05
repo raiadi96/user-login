@@ -1,6 +1,7 @@
 package com.example.userlogin.io.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.*;;
@@ -35,6 +36,17 @@ public class UserEntity implements Serializable {
 	
 	@Column(nullable = false)
 	public boolean emailVerificationStatus = false;
+	
+	@OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
+	public List<AddressEntity> addresses;
+
+	public List<AddressEntity> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<AddressEntity> addresses) {
+		this.addresses = addresses;
+	}
 
 	public long getId() {
 		return id;

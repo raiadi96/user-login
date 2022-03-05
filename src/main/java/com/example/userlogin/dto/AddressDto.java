@@ -2,17 +2,36 @@ package com.example.userlogin.dto;
 
 import java.io.Serializable;
 
-public class AddressDto implements Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8050608341543430986L;
+import org.hibernate.annotations.*;
+import org.springframework.data.annotation.Id;
+
+public class AddressDto {
+
+	public long id;
+
+	private long addressId;
+
 	public String city;
+
 	public String state;
+
 	public String country;
+
 	public String pincode;
+
 	public String type;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getCity() {
 		return city;
@@ -52,6 +71,14 @@ public class AddressDto implements Serializable{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(long addressId) {
+		this.addressId = addressId;
 	}
 
 }

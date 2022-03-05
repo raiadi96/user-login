@@ -30,10 +30,11 @@ public class logincontroller {
 
 	@GetMapping(path = "/{userId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public UserDetailsResponseModel getUser(@PathVariable String userId) {
-		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 
 		UserDto user_detail = userService.getUserById(userId);
-		BeanUtils.copyProperties(user_detail, userResponse);
+//		BeanUtils.copyProperties(user_detail, userResponse);
+		ModelMapper modelMapper = new ModelMapper();
+		UserDetailsResponseModel userResponse = modelMapper.map(user_detail, UserDetailsResponseModel.class);
 		return userResponse;
 	}
 
@@ -54,14 +55,13 @@ public class logincontroller {
 
 		if (userDetailsRequestModel.getFirst_name() == null)
 			throw new UserServiceException(ExceptionResponseEnum.MISSING_REQUIRED_FIELD.getMessage());
-
-		UserDetailsResponseModel userResponse = new UserDetailsResponseModel();
 //		UserDto userDto = new UserDto();
 //		BeanUtils.copyProperties(userDetailsRequestModel, userDto);
 		ModelMapper modelMapper = new ModelMapper();
 		UserDto userDto = modelMapper.map(userDetailsRequestModel, UserDto.class);
 		UserDto created_user = userService.createUser(userDto);
-		BeanUtils.copyProperties(created_user, userResponse);
+//		BeanUtils.copyProperties(created_user, userResponse);
+		UserDetailsResponseModel userResponse = modelMapper.map(created_user, UserDetailsResponseModel.class);
 		return userResponse;
 
 	}
@@ -80,9 +80,10 @@ public class logincontroller {
 			@RequestParam(value = "limit", defaultValue = "25") int limit) {
 		List<UserDetailsResponseModel> res = new ArrayList<UserDetailsResponseModel>();
 		List<UserDto> user_list = userService.getUsers(page, limit);
+		ModelMapper modelMapper = new ModelMapper();
 		for (UserDto userDto : user_list) {
-			UserDetailsResponseModel user_response_model = new UserDetailsResponseModel();
-			BeanUtils.copyProperties(userDto, user_response_model);
+			UserDetailsResponseModel user_response_model = modelMapper.map(userDto, UserDetailsResponseModel.class);
+//			BeanUtils.copyProperties(userDto, user_response_model);
 			res.add(user_response_model);
 		}
 		return res;

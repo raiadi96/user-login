@@ -1,6 +1,8 @@
 package com.example.userlogin.model.request;
 
 public class UserAddressRequestModel {
+	
+		private long id;
 	  	public String city;
 		public String state;
 	    public String country;
@@ -36,5 +38,11 @@ public class UserAddressRequestModel {
 		}
 		public void setType(String type) {
 			this.type = type;
+		}
+		public long getId() {
+			return id;
+		}
+		public void setId(long id) {
+			this.id = id;
 		}
 }
